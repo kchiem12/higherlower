@@ -8,3 +8,4 @@ Some notes:
 - The score can never be negative
 - Player can select the range of numbers (the upper and lower bounds *INCLUSIVE*
 
+> This serves as an introductory JavaScript project
