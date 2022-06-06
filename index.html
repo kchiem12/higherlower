@@ -9,26 +9,45 @@
 <body>
     
     <script>
-        var counter = 0;
-        var lowerBound = Number(prompt("What lower bound do you want to set?", "0"));
-        var upperBound = Number(prompt("What upper bound do you want to set?", lowerBound));
+        
+        let counter = 0;
+        let lowerBound = Number(prompt("What lower bound do you want to set?", "0"));
+        let upperBound = Number(prompt("What upper bound do you want to set?", lowerBound));
+        let numRounds = Number(prompt("How many rounds do you want to play?", "1"));
 
 
         /**
          * Randomly generates a number for the computer to select
-         * @param {Number} upper The upper bound that computer can select
-         * @param {Number} lower The lower bound that computer can select
-         * @return {Number}      The number that the computer selects
+         * @param  {Number} upper The upper bound that computer can select
+         * @param  {Number} lower The lower bound that computer can select
+         * @return {Number}       The number that the computer selects
          */
         function computerPlay(upper, lower) {
-            return Math.round(Math.random() * (upper-lower) + lower)
+            return Math.round(Math.random() * (upper-lower) + lower);
         }
 
         /**
-         * Executes gameplay for a certain number of times
+         * Executes game play for a certain number of times
+         * @return {String}   Message displayed in console for the result of the round
          */
         function playGame() {
+            let num = prompt(`What number do you pick (from ${lowerBound} to ${upperBound})`);
+            let comp = computerPlay(upperBound, lowerBound);
+            if (num > comp) {
+                counter++;
+                return `The computer selected ${comp}, which is less than ${num}. You win this round!\nScore is ${counter}`;
+            }
+            else if (num < comp) {
+                if (counter > 0) counter--;
+                return `The computer selected ${comp}, which is greater than ${num}. You lose this round!\nScore is ${counter}`;
+            }
+            else {
+                return `The computer selected ${comp}, in which you both tie!\nScore is ${counter}`;
+            }
+        }
 
+        for (let i = 0; i < numRounds; i++) {
+            console.log(playGame());
         }
 
     </script>
