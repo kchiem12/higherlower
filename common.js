@@ -1,17 +1,20 @@
+//The player and computer's score
 let playerScore = 0;
 let computerScore = 0;
 
+//References
 const input = document.querySelector('.input');
-
 const lowerB = document.querySelector('#lower-b');
 const upperB = document.querySelector('#upper-b');
 const rounds = document.querySelector('#rounds');
 const parameters = document.querySelector('.parameters');
 
+//Parameters of the game
 let lowerBound = 0;
 let upperBound = 0;
-let numRounds = 0;
+let numRounds = Number(rounds.value);
 
+//Creates the form to gather the parameters
 const playerInputForm = document.createElement('form');
 playerInputForm.classList.add('player-input');
 
@@ -59,6 +62,21 @@ theCounter.appendChild(playerPoints);
 theCounter.appendChild(computerPoints);
 
 
+/*
+
+For when the game is finished (numRounds == 0)
+
+*/
+const gameOver = document.createElement('div');
+gameOver.classList.add('game-over');
+const gameOverText = document.createElement('p');
+gameOverText.classList.add('game-over');
+const restart = document.createElement('input');
+restart.classList.add('restart-button');
+restart.type = 'button';
+restart.value = 'Restart';
+gameOver.appendChild(gameOverText);
+gameOver.appendChild(restart);
 
 
 //function that begins the game once the startbutton is clicked
@@ -110,10 +128,21 @@ function playGame(e) {
 
     playerPoints.textContent = `Your score is: ${playerScore}`;
     computerPoints.textContent = `The Computer's score is: ${computerScore}`;
+
+    numRounds--;
+
+    if (numRounds == 0) {
+        document.body.removeChild(theCounter);
+        input.removeChild(playerInputForm);
+        document.body.appendChild(gameOver);
+        e.preventDefault();
+    }
     
+
+    console.log(numRounds);
+
     e.preventDefault();
 }
-
 
 /*
 for (let i = 0; i < numRounds; i++) {
