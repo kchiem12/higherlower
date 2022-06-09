@@ -1,4 +1,5 @@
-let counter = 0;
+let playerScore = 0;
+let computerScore = 0;
 
 const input = document.querySelector('.input');
 
@@ -44,9 +45,18 @@ playerInputForm.appendChild(submission);
 
 
 //creates the counter
-const theCounter = document.createElement('p');
+const theCounter = document.createElement('div');
 theCounter.classList.add('counter');
 
+const playerPoints = document.createElement('p');
+playerPoints.setAttribute('id', 'player-points');
+playerPoints.textContent = `Your score is: ${playerScore}`
+const computerPoints = document.createElement('p');
+computerPoints.setAttribute('id', 'computer-points');
+computerPoints.textContent = `The Computer's score is: ${computerScore}`
+
+theCounter.appendChild(playerPoints);
+theCounter.appendChild(computerPoints);
 
 
 
@@ -58,18 +68,19 @@ function beginGame(e) {
     numRounds = Number(rounds.value);
     input.removeChild(parameters);
     input.appendChild(playerInputForm);
+
     console.log(`lowerBound = ${lowerBound}, upperBound = ${upperBound}, numRounds = ${numRounds}`);
     textLabelPlayer.textContent = `Input your number (any number from ${lowerBound} to ${upperBound}): `;
+    document.body.insertBefore(theCounter, document.body.children[1]);
 
     e.preventDefault();
-
-
 }
 
 const startButton = document.querySelector('#start-button');
 
+//for the forms
 parameters.addEventListener('submit', beginGame);
-
+playerInputForm.addEventListener('submit', playGame);
   
 
 
@@ -87,20 +98,20 @@ function computerPlay(upper, lower) {
  * Executes game play for a certain number of times
  * @return {String}   Message displayed in console for the result of the round
  */
-function playGame() {
-    let num = prompt(`What number do you pick (from ${lowerBound} to ${upperBound})`);
+function playGame(e) {
+    let num = Number(playerNumber.value);
     let comp = computerPlay(upperBound, lowerBound);
     if (num > comp) {
-        counter++;
-        return `The computer selected ${comp}, which is less than ${num}. You win this round!\nScore is ${counter}`;
-    }
-    else if (num < comp) {
-        if (counter > 0) counter--;
-        return `The computer selected ${comp}, which is greater than ${num}. You lose this round!\nScore is ${counter}`;
+        playerScore++;
     }
     else {
-        return `The computer selected ${comp}, in which you both tie!\nScore is ${counter}`;
+        computerScore++;
     }
+
+    playerPoints.textContent = `Your score is: ${playerScore}`;
+    computerPoints.textContent = `The Computer's score is: ${computerScore}`;
+    
+    e.preventDefault();
 }
 
 
