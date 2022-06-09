@@ -12,7 +12,7 @@ const parameters = document.querySelector('.parameters');
 //Parameters of the game
 let lowerBound = 0;
 let upperBound = 0;
-let numRounds = Number(rounds.value);
+let numRounds = 0;
 
 //Creates the form to gather the parameters
 const playerInputForm = document.createElement('form');
@@ -80,6 +80,8 @@ gameOver.appendChild(restart);
 
 restart.addEventListener('click', () => {
     document.body.removeChild(gameOver);
+    playerScore = 0;
+    computerScore = 0;
     input.appendChild(parameters);
 })
 
