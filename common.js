@@ -78,6 +78,11 @@ restart.value = 'Restart';
 gameOver.appendChild(gameOverText);
 gameOver.appendChild(restart);
 
+restart.addEventListener('click', () => {
+    document.body.removeChild(gameOver);
+    input.appendChild(parameters);
+})
+
 
 //function that begins the game once the startbutton is clicked
 function beginGame(e) {
@@ -131,11 +136,20 @@ function playGame(e) {
 
     numRounds--;
 
+    //When the player has played through the specified number of rounds, execute this:
     if (numRounds == 0) {
         document.body.removeChild(theCounter);
         input.removeChild(playerInputForm);
         document.body.appendChild(gameOver);
-        e.preventDefault();
+        if (playerScore > computerScore) {
+            gameOverText.textContent = 'Congratulations! You won against the computer!'
+        }
+        else if (playerScore < computerScore) {
+            gameOverText.textContent = 'Oh no! Unfortunately you lost against the computer!'
+        }
+        else {
+            gameOverText.textContent = 'It is a tie!!'
+        }
     }
     
 
